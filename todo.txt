@@ -1,4 +1,18 @@
 # GIVING ERROR IN LAST PART
+Build Step:
+
+Checks out the code from the repository.
+Installs Trivy for vulnerability scanning.
+Sets up Node.js and installs dependencies.
+Generates Prisma Client.
+Scans the codebase using Trivy.
+Builds the Docker image.
+Deploy Step:
+
+Installs Trivy for vulnerability scanning (again, can be removed if not needed in deployment).
+Pulls the Docker image.
+Scans the Docker image for vulnerabilities.
+
 
 name: CI/CD Pipeline
 
