@@ -1,10 +1,10 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { Companion, Message } from "@prisma/client";
+
 import { useRouter } from "next/navigation";
 import { useCompletion } from "ai/react";
-
+import { Companion, Message } from "@prisma/client";
 import ChatHeader from "@/components/chat-header";
 import ChatForm from "@/components/chat-form";
 import ChatMessages from "@/components/chat-messages";
