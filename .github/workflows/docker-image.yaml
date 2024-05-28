@@ -39,7 +39,6 @@ jobs:
       - name: Trivy scan
         run: trivy fs .
 
-      
       - name: Build Docker image and Push
         env:
           DOCKER_CLI_ACL: 1
@@ -83,6 +82,7 @@ jobs:
           echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
           sudo apt-get update
           sudo apt-get install -y trivy
+
       - name: Docker pull
         run: docker pull imarchit/instruct_ai:latest
 
@@ -91,22 +91,22 @@ jobs:
 
       - name: Run Docker container
         run: docker run -itd -p 3000:3000 \
-          --env NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
-         --env CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
-         --env NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} \
-         --env NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
-         --env NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL }} \
-         --env NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }} \
-         --env DATABASE_URL=${{ secrets.DATABASE_URL }} \
-         --env NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }} \
-         --env PINECONE_INDEX=${{ secrets.PINECONE_INDEX }} \
-         --env PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }} \
-         --env PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }} \
-         --env UPSTASH_REDIS_REST_URL=${{ secrets.UPSTASH_REDIS_REST_URL }} \
-         --env UPSTASH_REDIS_REST_TOKEN=${{ secrets.UPSTASH_REDIS_REST_TOKEN }} \
-         --env OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
-         --env REPLICATE_API_TOKEN=${{ secrets.REPLICATE_API_TOKEN }} \
-         --env STRIPE_API_KEY=${{ secrets.STRIPE_API_KEY }} \
-         --env NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }} \
-         --env STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }} \
-         imarchit/instruct_ai:latest
+             --env NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
+             --env CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
+             --env NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} \
+             --env NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
+             --env NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL }} \
+             --env NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }} \
+             --env DATABASE_URL=${{ secrets.DATABASE_URL }} \
+             --env NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }} \
+             --env PINECONE_INDEX=${{ secrets.PINECONE_INDEX }} \
+             --env PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }} \
+             --env PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }} \
+             --env UPSTASH_REDIS_REST_URL=${{ secrets.UPSTASH_REDIS_REST_URL }} \
+             --env UPSTASH_REDIS_REST_TOKEN=${{ secrets.UPSTASH_REDIS_REST_TOKEN }} \
+             --env OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+             --env REPLICATE_API_TOKEN=${{ secrets.REPLICATE_API_TOKEN }} \
+             --env STRIPE_API_KEY=${{ secrets.STRIPE_API_KEY }} \
+             --env NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }} \
+             --env STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }} \
+             imarchit/instruct_ai:latest
