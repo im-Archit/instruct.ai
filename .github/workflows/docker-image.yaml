@@ -38,7 +38,7 @@ jobs:
       run: npx prisma generate
 
     - name: Build Docker image
-      run: docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/imarchit/instruct_ai:latest .
+      run: docker buildx build --tag imarchit/instruct_ai:latest .
 
     - name: Install Trivy
       run: |
@@ -50,8 +50,8 @@ jobs:
         sudo apt-get install -y trivy
 
     - name: Run Trivy scan on Docker image
-      run: trivy image --exit-code 1 --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/imarchit/instruct_ai:latest
+      run: trivy image --exit-code 1 --severity HIGH,CRITICAL imarchit/instruct_ai:latest
 
     - name: Push Docker image
       if: success() # Only push if the Trivy scan passes
-      run: docker buildx build --push --tag ${{ secrets.DOCKER_USERNAME }}/imarchit/instruct_ai:latest .
+      run: docker buildx build --push --tag imarchit/instruct_ai:latest .
