@@ -39,9 +39,12 @@ jobs:
       - name: Trivy scan
         run: trivy fs .
 
+      
       - name: Build Docker image and Push
         env:
           DOCKER_CLI_ACL: 1
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
@@ -61,10 +64,11 @@ jobs:
           NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         run: |
-          echo "${{ secrets.DOCKER_ACCESS_KEY }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          echo "${DOCKER_ACCESS_TOKEN}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
           docker buildx build -t instruct.ai .
           docker tag instruct.ai imarchit/instruct_ai:latest
           docker push imarchit/instruct_ai:latest
+
   deploy:
     name: Deploy app to Docker
     needs: build
