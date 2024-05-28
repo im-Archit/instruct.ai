@@ -61,9 +61,9 @@ jobs:
           NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         run: |
+          echo "${{ secrets.DOCKER_ACCESS_KEY }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker buildx build -t instruct.ai .
           docker tag instruct.ai imarchit/instruct_ai:latest
-          echo ${{ secrets.DOCKER_ACCESS_KEY }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push imarchit/instruct_ai:latest
   deploy:
     name: Deploy app to Docker
